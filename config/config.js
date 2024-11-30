@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 
 
-const sequelize = require("sequelize");
-const sequelize = new sequelize('Gman', 'sa', 'UserAdmin123',{
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize('Gman', 'sa', 'UserAdm123',{
     dialect: 'mssql',
     dialectModule: require('tedious'),
     host:'localhost',
@@ -18,5 +18,5 @@ const connectToDataBase = async() =>{
         console.log(`Erro ao conectar com o banco de dados: ${err} `);
     }
 };
-module.exports = {sequelize, connectToDatabase};
+module.exports = {sequelize, connectToDataBase};
 
