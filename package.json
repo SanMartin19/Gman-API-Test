@@ -1,5 +1,20 @@
 {
+<<<<<<< HEAD
   "dependencies": {
+=======
+  "name": "gman-api-test",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+>>>>>>> 6b13ccd74547d60701c6cd0391681a5eb9f40f3e
     "sequelize": "^6.37.5",
     "tedious": "^18.6.1"
   }
