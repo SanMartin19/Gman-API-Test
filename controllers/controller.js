@@ -1,9 +1,6 @@
-const gmanModel = require("./mysql.models");
+const {Cliente , EquipesDeManutencao ,Funcionarios} = require("../models/sync");
 const path = require("path");
 
-const equipesManutencao = gmanModel.equipes_manutencao;
-const funcionarioModel = gmanModel.funcionario;
-const clienteModel = gmanModel.cliente;
 
 const userController = {
     index: (req, res) => {
@@ -16,9 +13,9 @@ const userController = {
 };
 
 const teamController = {
-    listarEquipesManutencao: async (req, res) => {
+    listarEquipesDeManutencao: async (req, res) => {
         try {
-            const equipes = await equipesManutencao.findAll();
+            const equipes = await EquipesDeManutencao.findAll();
             res.status(200).send(equipes);
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -28,7 +25,7 @@ const teamController = {
     criarEquipeManutencao: async (req, res) => {
         try {
             const { regiao_equipe, supervisor_equipe, status, num_membros_equipe } = req.body;
-            await equipesManutencao.create({ regiao_equipe, supervisor_equipe, status, num_membros_equipe });
+            await EquipesDeManutencao.create({ regiao_equipe, supervisor_equipe, status, num_membros_equipe });
             res.redirect("/listarEquipes");
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -40,12 +37,12 @@ const teamController = {
             const { id_equipesDeManutencao } = req.body;
             const { regiao_equipe, supervisor_equipe, status, num_membros_equipe } = req.body;
 
-            const equipe = await equipesManutencao.findByPk(id_equipesDeManutencao);
+            const equipe = await EquipesDeManutencao.findByPk(id_equipesDeManutencao);
             if (!equipe) {
                 return res.status(404).send("Equipe não encontrada!");
             }
 
-            await equipesManutencao.update(
+            await EquipesDeManutencao.update(
                 { regiao_equipe, supervisor_equipe, status, num_membros_equipe },
                 { where: { id_equipesDeManutencao } }
             );
@@ -59,12 +56,12 @@ const teamController = {
         try {
             const { id_equipesDeManutencao } = req.body;
 
-            const equipe = await equipesManutencao.findByPk(id_equipesDeManutencao);
+            const equipe = await EquipesDeManutencao.findByPk(id_equipesDeManutencao);
             if (!equipe) {
                 return res.status(404).send("Equipe não encontrada!");
             }
 
-            const result = await equipesManutencao.destroy({ where: { id_equipesDeManutencao } });
+            const result = await EquipesDeManutencao.destroy({ where: { id_equipesDeManutencao } });
             if (result > 0) {
                 res.status(200).json({ message: "Equipe excluída com sucesso!" });
             } else {
@@ -75,11 +72,14 @@ const teamController = {
         }
     },
 };
+// 
+
+
 
 const funcionarioController = {
     listarFuncionario: async (req, res) => {
         try {
-            const funcionarios = await funcionarioModel.findAll();
+            const funcionarios = await Funcionarios.findAll();
             res.status(200).send(funcionarios);
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -89,7 +89,7 @@ const funcionarioController = {
     criarFuncionario: async (req, res) => {
         try {
             const { id, nome, cargo, funcionario_email, funcionario_senha, funcionario_telefone, data_admissao } = req.body;
-            await funcionarioModel.create({ id, nome, cargo, funcionario_email, funcionario_senha, funcionario_telefone, data_admissao });
+            await Funcionarios.create({ id, nome, cargo, funcionario_email, funcionario_senha, funcionario_telefone, data_admissao });
             res.redirect("/listarFuncionarios");
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -101,12 +101,12 @@ const funcionarioController = {
             const { id } = req.body;
             const { nome, cargo, funcionario_email, funcionario_senha, funcionario_telefone, data_admissao } = req.body;
 
-            const funcionario = await funcionarioModel.findByPk(id);
+            const funcionario = await Funcionarios.findByPk(id);
             if (!funcionario) {
                 return res.status(404).send("Funcionário não encontrado!");
             }
 
-            await funcionarioModel.update(
+            await Funcionarios.update(
                 { nome, cargo, funcionario_email, funcionario_senha, funcionario_telefone, data_admissao },
                 { where: { id } }
             );
@@ -119,13 +119,13 @@ const funcionarioController = {
     deletarFuncionario: async (req, res) => {
         try {
             const { id } = req.body;
-            const funcionario = await funcionarioModel.findByPk(id);
+            const funcionario = await Funcionarios.findByPk(id);
 
             if (!funcionario) {
                 return res.status(404).send("Funcionário não encontrado!");
             }
 
-            const result = await funcionarioModel.destroy({ where: { id } });
+            const result = await Funcionarios.destroy({ where: { id } });
             if (result > 0) {
                 res.status(200).json({ message: "Funcionário excluído com sucesso!" });
             } else {
@@ -140,7 +140,7 @@ const funcionarioController = {
 const clienteController = {
     listarCliente: async (req, res) => {
         try {
-            const clientes = await clienteModel.findAll();
+            const clientes = await Cliente.findAll();
             res.status(200).send(clientes);
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -150,7 +150,7 @@ const clienteController = {
     criarCliente: async (req, res) => {
         try {
             const { username, email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao } = req.body;
-            await clienteModel.create({ username, email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao });
+            await Cliente.create({ username, email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao });
             res.redirect("/listarClientes");
         } catch (error) {
             res.status(500).send("Erro ao acessar a página: " + error);
@@ -162,12 +162,12 @@ const clienteController = {
             const { username } = req.body;
             const { email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao } = req.body;
 
-            const cliente = await clienteModel.findByPk(username);
+            const cliente = await Cliente.findByPk(username);
             if (!cliente) {
                 return res.status(404).send("Cliente não encontrado!");
             }
 
-            await clienteModel.update(
+            await Cliente.update(
                 { email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao },
                 { where: { username } }
             );
@@ -180,13 +180,13 @@ const clienteController = {
     deletarCliente: async (req, res) => {
         try {
             const { username } = req.body;
-            const cliente = await clienteModel.findByPk(username);
+            const cliente = await Cliente.findByPk(username);
 
             if (!cliente) {
                 return res.status(404).send("Cliente não encontrado!");
             }
 
-            const result = await clienteModel.destroy({ where: { username } });
+            const result = await Cliente.destroy({ where: { username } });
             if (result > 0) {
                 res.status(200).json({ message: "Cliente excluído com sucesso!" });
             } else {
