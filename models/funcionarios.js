@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./db.js');
+const {sequelize} = require('../config/config');
 const EquipesDeManutencao = require('./equipesMNT.js');  // Importa o modelo da equipe
 
 const Funcionarios = sequelize.define('Funcionarios', {
@@ -29,13 +29,15 @@ const Funcionarios = sequelize.define('Funcionarios', {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
-  idEquipeFuncionario: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: EquipesDeManutencao,  // Refere-se ao modelo de EquipesDeManutencao
-      key: 'id_equipesDeManutencao',
-    },
+  // idEquipeFuncionario: {
+  //   type: DataTypes.INTEGER,
+  //   references: {
+  //     model: EquipesDeManutencao,  // Refere-se ao modelo de EquipesDeManutencao
+  //     key: 'id_equipesDeManutencao',
+  // }},
   },
-});
+);
+
+Funcionarios.sync
 
 module.exports = Funcionarios;

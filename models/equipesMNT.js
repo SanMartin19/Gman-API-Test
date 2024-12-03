@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./db.js');  // Importa a configuração do Sequelize
+const { sequelize }= require('../config/config');  // Importa a configuração do Sequelize
 
 const EquipesDeManutencao = sequelize.define('EquipesDeManutencao', {
   id_equipesDeManutencao: {

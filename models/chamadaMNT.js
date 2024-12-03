@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./db.js');
+const sequelize = require('../config/config');
 const Cliente = require('./userclientes');  // Importa o modelo Cliente
 const EquipesDeManutencao = require('./equipesMNT');  // Importa o modelo EquipesDeManutencao
 

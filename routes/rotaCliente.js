@@ -1,18 +1,20 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const funcionarioController = require('../controllers/funcionarioController');
 
-const GmanController = require("../controllers/controller");
+// Rota para criar um funcionário
+router.post('/funcionarios',funcionarioController.createFuncionario);
 
-router.put("/criarCliente", GmanController.clienteController.criarCliente);
+// Rota para buscar todos os funcionários
+router.get('/funcionarios',funcionarioController.getAllFuncionarios);
 
-router.post("/editarCliente/:email_cliente/:cliente_senha/:cliente_telefone/:cliente_endereco/:cliente_cartao", GmanController.clienteController.editarCliente);
+// Rota para buscar um funcionário por ID
+router.get('/funcionarios/:id', funcionarioController.getFuncionarioById);
 
-router.get("/listarClientes", GmanController.clienteController.listarCliente);
+// Rota para atualizar um funcionário
+router.put('/funcionarios/:id', funcionarioController.updateFuncionario);
 
-router.delete("/deletarCliente/:id_cliente", GmanController.clienteController.deletarCliente);
+// Rota para deletar um funcionário
+router.delete('/funcionarios/:id', funcionarioController.deleteFuncionario);
 
-
-module.exports = { router };
-
-
-// email, cliente_senha, cliente_telefone, cliente_endereco, cliente_cartao 
+module.exports = router;

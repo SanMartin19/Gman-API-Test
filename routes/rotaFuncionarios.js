@@ -1,15 +1,23 @@
-const express = require("express");
+
+const express = require('express');
 const router = express.Router();
+const funcionarioController = require('../controllers/funcionarios');
+const ControllerFuncionarios = require('../controllers/funcionarios');
 
-const GmanController = require("../controllers/controller");
+router.get('/funcionarios/' , (req ,res)=>{
+    res.send('Rota em bom estado')
+})
 
-router.put("/criarFuncionario", GmanController.funcionarioController.criarFuncionario);
+// Rota para criar um novo funcionário
+router.post('/funcionarios/add', ControllerFuncionarios.criaFuncionario)
 
-router.post("/editarFuncionario/:nome_funcionario/:cargo_funcionario/:funcionario_email/:funconario_senha/:funcionario_telefone/:data_admissao", GmanController.funcionarioController.editarFuncionarios);
+// // Rota para buscar um funcionário por ID
+router.get('/funcionarios/list', ControllerFuncionarios.listarFuncionarios);
 
-router.get("/listarFuncionario", GmanController.funcionarioController.listarFuncionario);
+// // Rota para atualizar um funcionário
+router.put('/funcionarios/editar/:id_funcionario', funcionarioController.editarFuncionarios);
 
-router.delete("/deletarFuncionario/:id_funcionario", GmanController.funcionarioController.deletarFuncionario);
+// // Rota para deletar um funcionário
+router.delete('/funcionarios/deletar/:id_funcionario', funcionarioController.deletarFuncionario);
 
-module.exports = { router };
-
+module.exports = router;

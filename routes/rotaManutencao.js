@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const chamadaController = require('../controllers/chamadaMNT');
 
-const GmanController = require("../controllers/controller");
 
+// Rota para criar uma chamada de manutenção
+router.post('/chamadas/post', chamadaController.createChamadaDeManutencao);
 
-//router.post("criarEquipeManutencao", GmanController.teamController.criarEquipeManutencao);
+// Rota para buscar todas as chamadas de manutenção
+router.get('/chamadas', chamadaController.getAllChamadas);
 
-router.get("/listarEquipeManutencao", GmanController.teamController.listarEquipesDeManutencao);
+// Rota para buscar uma chamada de manutenção por ID
+router.get('/chamadas/:id', chamadaController.getChamadaById);
 
-//router.put("/editarEquipeManutencao/:id_equipeManutencao", GmanController.teamController.listarEquipesManutencao);
+// Rota para atualizar uma chamada de manutenção
+router.put('/chamadas/:id', chamadaController.updateChamadaDeManutencao);
 
-//router.delete("/deletarEquipeManutencao/:id_equipeManutencao", GmanController.teamController.deletarEquipeManutencao);
+// Rota para deletar uma chamada de manutenção
+router.delete('/chamadas/:id', chamadaController.deleteChamadaDeManutencao);
 
 module.exports = router;
 

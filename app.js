@@ -1,20 +1,23 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 3380;
 
 const path = require("path"); 
 
-const rotaManutencao = require("./routes/rotaManutencao");
+const rotaFuncionarios = require("./routes/rotaFuncionarios")
 
 const {connectToDataBase } = require("./config/config");
-connectToDataBase();
 
+app.get('/' , (res ,req)=>{
+    req.send("Teste")
+})
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname,"/views")));
 
-app.use('/', rotaManutencao);
+app.use('/', rotaFuncionarios);
 
 app.listen(port, ()=>{
+    connectToDataBase()
     console.log(`Servidor ouvindo na porta ${port}`);
 });
