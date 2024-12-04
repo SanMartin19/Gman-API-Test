@@ -38,6 +38,5 @@ const Funcionarios = sequelize.define('Funcionarios', {
   },
 );
 
-Funcionarios.sync
 
 module.exports = Funcionarios;

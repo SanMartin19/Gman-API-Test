@@ -1,11 +1,25 @@
 
 const Funcionarios = require('./funcionarios.js');
-
+const EquipeMNT = require('./equipesMNT.js')
+const Cliente = require('./userclientes.js');
 
 
 // Inicializar as associações
 
 // Sincronizar os modelos com o banco de dados (caso necessário)
+Cliente.sync({ force : true}).then(() => {
+  console.log("Modelos sincronizados com sucesso");
+})
+.catch(err => {
+  console.log("Erro ao sincronizar modelos:", err);
+});
+
+EquipeMNT.sync({ force : true}).then(() => {
+  console.log("Modelos sincronizados com sucesso");
+})
+.catch(err => {
+  console.log("Erro ao sincronizar modelos:", err);
+});
 
 
 Funcionarios.sync({ force : true}).then(() => {

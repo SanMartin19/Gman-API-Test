@@ -1,77 +1,61 @@
-const { ChamadaDeManutencao } = require('../models/equipesMNT'); // Importa o modelo ChamadaDeManutencao
+const { where } = require("sequelize");
+const ChamadaDeManutencao = require("../models/equipesMNT"); // Importa o modelo ChamadaDeManutencao
 
 // Controller para criar uma nova chamada de manutenção
-exports.createChamadaDeManutencao = async (req, res) => {
-  try {
-    const chamada = await ChamadaDeManutencao.create({
-      tipoDeManutencao: req.body.tipoDeManutencao,
-      regiaoCliente: req.body.regiaoCliente,
-      dataManutencao: req.body.dataManutencao,
-      reagendamentoManutencao: req.body.reagendamentoManutencao,
-      pagamentoManutencao: req.body.pagamentoManutencao,
-      id_Cliente: req.body.id_Cliente,
-      id_equipeManu: req.body.id_equipeManu
-    });
-
-    return res.status(201).json(chamada); // Retorna a chamada criada
-  } catch (error) {
-    return res.status(500).json({ message: "Erro ao criar chamada de manutenção", error });
-  }
-};
-
-// Controller para buscar todas as chamadas de manutenção
-exports.getAllChamadas = async (req, res) => {
-  try {
-    const chamadas = await ChamadaDeManutencao.findAll();
-    return res.status(200).json(chamadas);
-  } catch (error) {
-    return res.status(500).json({ message: "Erro ao buscar chamadas de manutenção", error });
-  }
-};
-
-// Controller para buscar uma chamada de manutenção por id
-exports.getChamadaById = async (req, res) => {
-  try {
-    const chamada = await ChamadaDeManutencao.findByPk(req.params.id);
-    if (!chamada) {
-      return res.status(404).json({ message: "Chamada de manutenção não encontrada" });
+const ControllerEuqipeMNT = {
+  listarEquipeMNT: async (req, res) => {
+    try {
+      const equipe = await ChamadaDeManutencao.findAll();
+      res.send(equipe);
+    } catch (error) {
+      res.send("Erro : ", error);
     }
-    return res.status(200).json(chamada);
-  } catch (error) {
-    return res.status(500).json({ message: "Erro ao buscar chamada de manutenção", error });
-  }
-};
-
-// Controller para atualizar uma chamada de manutenção
-exports.updateChamadaDeManutencao = async (req, res) => {
-  try {
-    const chamada = await ChamadaDeManutencao.update(req.body, {
-      where: { id_manutencao: req.params.id }
+  },
+  criarEquipeMNT: async (req, res) => {
+    const { regiaoEquipe, supervisorEquipe, statusEquipe, numMembrosEquipe } =
+      req.body;
+    await ChamadaDeManutencao.create({
+      regiaoEquipe,
+      supervisorEquipe,
+      statusEquipe,
+      numMembrosEquipe,
     });
-
-    if (chamada[0] === 0) {
-      return res.status(404).json({ message: "Chamada de manutenção não encontrada" });
-    }
-
-    return res.status(200).json({ message: "Chamada de manutenção atualizada com sucesso" });
-  } catch (error) {
-    return res.status(500).json({ message: "Erro ao atualizar chamada de manutenção", error });
+    res.redirect("/chamadas/list");
+  },
+  editarEquipeMNT: async (req, res) => {
+    const { id_equipesDeManutencao } = req.params;
+    const {
+      regiaoEquipe,
+      supervisorEquipe,
+      statusEquipe,
+      numMembrosEquipe} =req.body;
+      const equipe = await ChamadaDeManutencao.findByPk(id_equipesDeManutencao);
+      if(!equipe){
+        return res.status(404).send("Equipe não encontrada!");
+      }
+      await ChamadaDeManutencao.update({
+        regiaoEquipe,
+        supervisorEquipe,
+        statusEquipe,
+        numMembrosEquipe}, {where: {id_equipesDeManutencao}});
+        res.status(200).json({ message: "Equipe atualizada com sucesso!" });
+  },
+  deletarEquipeMNT: async (req,res) =>{
+    const {id_equipesDeManutencao} = req.params
+    const equipe = await ChamadaDeManutencao.findByPk(id_equipesDeManutencao);
+    if (!equipe) {
+    return res.status(404).send("Equipe não encontrada!");
   }
-};
-
-// Controller para deletar uma chamada de manutenção
-exports.deleteChamadaDeManutencao = async (req, res) => {
-  try {
-    const chamada = await ChamadaDeManutencao.destroy({
-      where: { id_manutencao: req.params.id }
-    });
-
-    if (chamada === 0) {
-      return res.status(404).json({ message: "Chamada de manutenção não encontrada" });
-    }
-
-    return res.status(200).json({ message: "Chamada de manutenção deletada com sucesso" });
-  } catch (error) {
-    return res.status(500).json({ message: "Erro ao deletar chamada de manutenção", error });
+  const result = await ChamadaDeManutencao.destroy({
+    where: { id_equipesDeManutencao },
+  });
+  if (result > 0) {
+    return res
+    .status(200)
+    .json({ message: "Equipe excluída com sucesso!" });
+  } else {
+    return res.status(404).render("Erro ao excluir Equipe!");
   }
+}
 };
+module.exports = ControllerEuqipeMNT;
