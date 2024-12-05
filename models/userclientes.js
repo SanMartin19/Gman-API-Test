@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize }= require('../config/config'); // Importa a configuração do Sequelize
 
-const Cliente = sequelize.define('Cliente', {
+const UserCliente = sequelize.define('Cliente', {
   id_cliente: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -34,4 +34,4 @@ const Cliente = sequelize.define('Cliente', {
   },
 });
 
-module.exports = Cliente;
+module.exports = UserCliente;

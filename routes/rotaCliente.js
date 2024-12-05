@@ -1,20 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const funcionarioController = require('../controllers/funcionarioController');
+const ControllerUserClientes = require('../controllers/userclientes');
 
 // Rota para criar um funcionário
-router.post('/funcionarios',funcionarioController.createFuncionario);
+router.post('/usercliente/add',ControllerUserClientes.criaUserClientes);
 
 // Rota para buscar todos os funcionários
-router.get('/funcionarios',funcionarioController.getAllFuncionarios);
+router.get('/usercliente/list',ControllerUserClientes.listarUserClientes);
 
-// Rota para buscar um funcionário por ID
-router.get('/funcionarios/:id', funcionarioController.getFuncionarioById);
+// // Rota para buscar um funcionário por ID
+// router.get('/usercliente/:id', ControllerUserClientes.);
 
 // Rota para atualizar um funcionário
-router.put('/funcionarios/:id', funcionarioController.updateFuncionario);
+router.put('/usercliente/edit/:id_cliente', ControllerUserClientes.editarUserClientes);
 
 // Rota para deletar um funcionário
-router.delete('/funcionarios/:id', funcionarioController.deleteFuncionario);
+router.delete('/usercliente/delete/:id_cliente', ControllerUserClientes.deletarUserClientes);
 
 module.exports = router;
+                                                                                

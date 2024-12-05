@@ -5,7 +5,7 @@ const port = 3380;
 const path = require("path"); 
 const rotaChamadaMNT =  require("./routes/rotaManutencao")
 const rotaFuncionarios = require("./routes/rotaFuncionarios")
-
+const rotaUserClientes = require("./routes/rotaCliente")
 const {connectToDataBase } = require("./config/config");
 
 app.get('/' , (res ,req)=>{
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"/views")));
 app.use('/' , rotaChamadaMNT)
 app.use('/', rotaFuncionarios);
+app.use('/' , rotaUserClientes)
 
 app.listen(port, ()=>{
     connectToDataBase()
