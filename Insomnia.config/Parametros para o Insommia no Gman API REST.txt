@@ -1,0 +1,106 @@
+Tabela Clientes
+Get - http://localhost:3000/api/clientes
+Post - http://localhost:3000/api/clientes
+
+{
+  "nome_cliente": "Promac ",
+	"endereco_cliente":"Rua Promac, 1000 ",
+        "telefone_cliente": "987654321",
+	"email_cliente": "promac@gmail.com",
+	"login_cliente": "1234567890",
+	"cartao_cliente": "987654321"
+}
+
+Put- http://localhost:3000/api/clientes/1
+{
+ 
+  "nome_cliente": "Promak ",
+	"endereco_cliente":"Rua Promac, 1000 ",
+        "telefone_cliente": "987654321",
+	"email_cliente": "promac@gmail.com",
+	"login_cliente": "1234567890",
+	"cartao_cliente": "987654321"
+  
+}
+Deletar - http://localhost:3000/api/clientes/2
+
+Tabela Funcionarios
+
+GET - http://localhost:3000/api/funcionarios
+
+POST- http://localhost:3000/api/funcionarios
+	
+		
+       {
+	"nome_funcionario": "",
+	"funcao_funcionario": "",
+	"telefone_funcionario": "",
+	"email_funcionario": "",
+	"senha_funcionario": ""
+			
+	}
+	
+
+PUT - http://localhost:3000/api/funcionarios/1
+	{
+		
+		"nome_funcionario": "SAN",
+		"funcao_funcionario": "",
+		"telefone_funcionario": "",
+		"email_funcionario": "",
+		"senha_funcionario": ""
+	}
+
+DELETE - http://localhost:3000/api/funcionarios/1
+
+
+Tabela Equipes de Manutenção
+
+GET - http://localhost:3000/api/equipesDeManutencao
+
+POST - http://localhost:3000/api/equipesDeManutencao
+
+	{
+		
+		"regiaoEquipe": "Centro",
+		"supervisorEquipe": "Eledilson",
+		"statusEquipe": "Ativa",
+		"numMembrosEquipe" : ""
+	}
+
+PUT -http://localhost:3000/api/equipesDeManutencao/1
+
+	{
+		
+		"regiaoEquipe": "Centro",
+		"supervisorEquipe": "Eledilson SAN ",
+		"statusEquipe": "Ativa",
+		"numMembrosEquipe" : ""
+	}
+DELETE - http://localhost:3000/api/equipesDeManutencao/1
+
+Tabela Chamadas de Manutenção
+
+GET - http://localhost:3000/api/chamadaDeManutencao
+
+POST -http://localhost:3000/api/chamadaDeManutencao
+{
+  "tipoDeManutencao": "Reparo Elétrico",
+  "regiaoCliente": "Sul",
+  "dataManutencao": "2024-12-10", 
+  "reagendamentoManutencao": null,
+  "pagamentoManutencao": 350.75,
+	
+}
+
+PUT - http://localhost:3000/api/chamadaDeManutencao/1
+
+{
+	"tipoDeManutencao":"n",
+  "regiaoCliente":"sul",
+  "dataManutencao": "25",
+  "reagendamentoManutencao":"",
+  "pagamentoManutencao":"150"
+}
+
+DELETE - http://localhost:3000/api/chamadaDeManutencao/1
