@@ -29,12 +29,12 @@ const Funcionarios = sequelize.define('Funcionarios', {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
-  // idEquipeFuncionario: {
-  //   type: DataTypes.INTEGER,
-  //   references: {
-  //     model: EquipesDeManutencao,  // Refere-se ao modelo de EquipesDeManutencao
-  //     key: 'id_equipesDeManutencao',
-  // }},
+  idEquipeFuncionario: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: EquipesDeManutencao,  // Refere-se ao modelo de EquipesDeManutencao
+      key: 'id_equipesDeManutencao',
+  }},
   },
 );
 
